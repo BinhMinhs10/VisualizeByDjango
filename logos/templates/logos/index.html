@@ -1,0 +1,47 @@
+{% extends 'logos/base.html' %}
+
+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+{% block content %}
+  <div class="card mt-4">
+    
+    {% if brand %}
+      <img id='img-upload' name="logo" class="card-img-top img-fluid" src = "{{imglogo}}" alt="Logo image">
+    {% else %}
+      <img id='img-upload' name="logo" class="card-img-top img-fluid" src="http://placehold.it/900x400"  alt="Logo image">
+    {% endif %}
+    
+    <div class="card-body">
+      {% if brand %}
+        <h3 class="card-title">{{ brand }}</h3>
+      {% else %}
+        <h3 class="card-title">Brand Name</h3>
+      {% endif%}
+      
+      <h4>$24.99</h4>
+      <p class="card-text">Mọi thứ chỉ mang tính chất tương đối!</p>
+      <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+      4.0 stars
+    </div>
+  </div>  
+  
+  <div class="card mt-4">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="input-group">
+        <span class="input-group-btn">
+            <span class="btn btn-default btn-file">
+                Browse… <input type="file" name="imgInp" id="imgInp">
+            </span>
+        </span>
+        <input type="text" class="form-control" readonly>
+      </div>
+      <br>
+      <div class="p-5 ">
+        <button type="submit" class="btn btn-primary btn-lg">Upload</button>
+      </div>
+      
+    </form>
+  </div>
+{% endblock %}
