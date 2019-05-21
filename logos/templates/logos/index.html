@@ -13,12 +13,12 @@ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
     <div class="card-body">
       {% if brand %}
-        <h3 class="card-title">{{ brand }}</h3>
+        <h1 class="card-title">{{ brand }}</h1>
       {% else %}
-        <h3 class="card-title">Brand Name</h3>
+        <h1 class="card-title">Brand Name</h1>
       {% endif%}
       
-      <h4>$24.99</h4>
+      <h4><a href="#">Read more about Car</a></h4>
       <p class="card-text">Mọi thứ chỉ mang tính chất tương đối!</p>
       <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
       4.0 stars
@@ -28,7 +28,15 @@ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
   <div class="card mt-4">
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      
+      <div class="form-group">
+        <label for="Select1"><h2>Select model</h2></label>
+        <select class="form-control form-control-lg" id="Select1" name="model">
+          <option value="1">Model CarL-CNN: 10 class</option>
+          <option value="2">Model Finetune ResNet50 + AUGM: 40 class </option>
+          
+        </select>
+      </div>
+      <br><br><hr>
       <div class="input-group">
         <span class="input-group-btn">
             <span class="btn btn-default btn-file">
