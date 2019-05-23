@@ -14,31 +14,28 @@ from elasticsearchs.searchs import *
 # Create your views here.
 def index(request):
     if request.method == 'POST':
+        if request.POST['search_type']=='1':
+            took, total, results = match_phrase_prefix("description",request.POST['textsearch'])
+        elif request.POST['search_type']=='2':
+            took, total, results = multi_match(["title","description"],request.POST['textsearch'])
+        elif request.POST['search_type']=='3':
+            took, total, results = fuzzy_search("description",request.POST['textsearch'])
+        elif request.POST['search_type']=='4':
+            took, total, results = boolean_search_must("description",request.POST['textsearch'])
+        elif request.POST['search_type']=='5':
+            took, total, results = boolean_search_should("description",request.POST['textsearch'])
+        elif request.POST['search_type']=='6':
+            took, total, results = match("description",request.POST['textsearch'])
+        else:
+            took, total, results = match_phrase_prefix("description",request.POST['textsearch'])
         
-        took, total, results = fuzzy_search("description",request.POST['textsearch'])
         
+
         return render(request, 'elasticsearchs/index.html',{
             'time': took,
             'total': total,
             'results': results
         })
-        # es = Elasticsearch()
-        # text = 'ra'
-        # suggest_dictionary = {
-        #     "entity-suggest" : {
-        #             'text' : text,
-        #             "completion" : {
-        #                 "field" : "suggest"
-        #             }
-        #         }
-        #     }
-
-        # query_dictionary = {'suggest' : suggest_dictionary}
-
-        # res = es.search(
-        #     index='newpapers',
-        #     doc_type='_doc',
-        #     body=query_dictionary)
-        # return res
+        
 
     return render(request, 'elasticsearchs/index.html')
